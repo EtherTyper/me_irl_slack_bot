@@ -1,9 +1,8 @@
 // Trick Heroku into keeping the app running.
 const http = require('http')
-const { fetch: nodeFetch } = require('whatwg-fetch')
 
 require('http').createServer((req, res) => { res.end(); }).listen(process.env.PORT || 5000);
-setInterval(() => { nodeFetch("https://meirl-bot.herokuapp.com") }, 5 * 60 * 1000)
+setInterval(() => { http.request("https://meirl-bot.herokuapp.com", null) }, 5 * 60 * 1000)
 
 const RtmClient = require('@slack/client').RtmClient;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
@@ -60,6 +59,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function (message: {text: string, channel: string}) {
         rtm.sendMessage('/u/waterguy12 is gonna love this one!', message.channel);
     } else if (text.includes(';-;')) {
         rtm.sendMessage('Me too thanks.', message.channel);
+    } else if (/me.irl/g.test(text)) {
+        rtm.sendMessage(`${text.match(/me.irl/g)[0]} machine broke.`, message.channel);
     }
 
     console.log(message);
