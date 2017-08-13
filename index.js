@@ -1,5 +1,5 @@
 // Trick Heroku
-require('http').createServer((req, res) => { res.end(); });
+require('http').createServer((req, res) => { res.end(); }).listen(process.env.PORT || 5000);
 const RtmClient = require('@slack/client').RtmClient;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
