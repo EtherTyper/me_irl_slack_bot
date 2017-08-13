@@ -1,6 +1,6 @@
 // Trick Heroku into keeping the app running.
 const http = require('http');
-const { nodeFetch } = require('whatwg-fetch');
+const { fetch: nodeFetch } = require('whatwg-fetch');
 require('http').createServer((req, res) => { res.end(); }).listen(process.env.PORT || 5000);
 setInterval(() => { nodeFetch("https://meirl-bot.herokuapp.com"); }, 5 * 60 * 1000);
 const RtmClient = require('@slack/client').RtmClient;
