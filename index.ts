@@ -55,7 +55,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function (message: {text: string, channel: string}) {
     let text = message.text;
     if (!text) return;
 
-    let me_irlRegex = /me(.|:.+:)irl/g;
+    let me_irlRegex = /me(.?|:.+:)irl/g;
 
     if (text.includes(username)) {
         rtm.sendMessage('/u/waterguy12 is gonna love this one!', message.channel);
