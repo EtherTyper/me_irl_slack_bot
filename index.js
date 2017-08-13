@@ -1,5 +1,8 @@
-// Trick Heroku
+// Trick Heroku into keeping the app running.
+const http = require('http');
+require('whatwg-fetch');
 require('http').createServer((req, res) => { res.end(); }).listen(process.env.PORT || 5000);
+setInterval(() => { fetch("https://meirl-bot.herokuapp.com"); }, 5 * 60 * 1000);
 const RtmClient = require('@slack/client').RtmClient;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
