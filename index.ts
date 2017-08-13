@@ -13,9 +13,11 @@ const bot_token = process.env.SLACK_BOT_TOKEN || '';
 
 let rtm = new RtmClient(bot_token);
 
-let channels = [];
-let random = undefined;
-let username = undefined;
+type Channel = {is_member: boolean, is_general: boolean, id: string, name: string};
+
+let channels: Channel[] = [];
+let random: Channel | undefined = undefined;
+let username: string | undefined = undefined;
 
 // The client will emit an RTM.AUTHENTICATED event on successful connection, with the `rtm.start` payload
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
@@ -50,8 +52,8 @@ async function makeSpammyPost() {
     lastMessageResponse = rtm.sendMessage(`IF THIS POST GETS ${currentGoal} REACTIONS I WILL POST IT AGAIN BUT DOUBLE THE NUMBER!`, random.id);
 }
 
-rtm.on(RTM_EVENTS.MESSAGE, function (message) {
-    let text = <string>message.text;
+rtm.on(RTM_EVENTS.MESSAGE, function (message: {text: string, channel: string}) {
+    let text = message.text;
     if (!text) return;
 
     if (text.includes(username)) {
@@ -63,7 +65,9 @@ rtm.on(RTM_EVENTS.MESSAGE, function (message) {
     console.log(message);
 })
 
-rtm.on(RTM_EVENTS.REACTION_ADDED, async function (reaction) {
+type Reaction = {item?: {ts: string}};
+
+rtm.on(RTM_EVENTS.REACTION_ADDED, async function (reaction: Reaction) {
     let lastMessage = await lastMessageResponse;
     
     console.log(reaction);
@@ -82,7 +86,7 @@ rtm.on(RTM_EVENTS.REACTION_ADDED, async function (reaction) {
     }
 })
 
-rtm.on(RTM_EVENTS.REACTION_REMOVED, async function (reaction) {
+rtm.on(RTM_EVENTS.REACTION_REMOVED, async function (reaction: Reaction) {
     let lastMessage = await lastMessageResponse;
 
     console.log(reaction);
