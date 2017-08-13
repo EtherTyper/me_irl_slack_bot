@@ -1,0 +1,12 @@
+{
+  "name": "me_irlbot",
+  "version": "1.0.0",
+  "description": "me_irl right now",
+  "main": "index.js",
+  "repository": "https://github.com/ethertyper/me_irlbot.git",
+  "author": "Eli Joesph Bradley <elijos03@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@slack/client": "^3.11.0"
+  }
+}
