@@ -34,13 +34,13 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
     makeSpammyPost()
 });
 
-let lastMessage = undefined;
+let lastMessageResponse = undefined;
 let currentGoal = 2;
 let currentTally = 0;
 
 async function makeSpammyPost() {
     console.log(`random: ${random}`)
-    lastMessage = await rtm.sendMessage(`IF THIS POST GETS ${currentGoal} REACTIONS I WILL POST IT AGAIN BUT DOUBLE THE NUMBER!`, random.id)
+    lastMessageResponse = rtm.sendMessage(`IF THIS POST GETS ${currentGoal} REACTIONS I WILL POST IT AGAIN BUT DOUBLE THE NUMBER!`, random.id)
 }
 
 rtm.on(RTM_EVENTS.MESSAGE, function (message) {
@@ -54,7 +54,9 @@ rtm.on(RTM_EVENTS.MESSAGE, function (message) {
     console.log(message)
 })
 
-rtm.on(RTM_EVENTS.REACTION_ADDED, function (reaction) {
+rtm.on(RTM_EVENTS.REACTION_ADDED, async function (reaction) {
+    let lastMessage = await lastMessageResponse
+    
     console.log(reaction)
     console.log(lastMessage.ts)
     if (lastMessage != undefined && 
@@ -71,7 +73,9 @@ rtm.on(RTM_EVENTS.REACTION_ADDED, function (reaction) {
     }
 })
 
-rtm.on(RTM_EVENTS.REACTION_REMOVED, function (reaction) {
+rtm.on(RTM_EVENTS.REACTION_REMOVED, async function (reaction) {
+    let lastMessage = await lastMessageResponse
+
     console.log(reaction)
     if (lastMessage != undefined && 
         reaction.item.ts != undefined &&
