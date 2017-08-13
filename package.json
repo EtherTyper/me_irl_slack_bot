@@ -8,5 +8,8 @@
   "license": "MIT",
   "dependencies": {
     "@slack/client": "^3.11.0"
+  },
+  "engines": {
+    "node": "8.3.x"
   }
 }
