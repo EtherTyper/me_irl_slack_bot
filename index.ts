@@ -9,7 +9,7 @@ const RtmClient = require('@slack/client').RtmClient;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 
-const bot_token = process.env.SLACK_BOT_TOKEN || '';
+const bot_token: string = process.env.SLACK_BOT_TOKEN || '';
 
 let rtm = new RtmClient(bot_token);
 
@@ -43,7 +43,7 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
     makeSpammyPost();
 });
 
-let lastMessageResponse = undefined;
+let lastMessageResponse: Promise<{ts: string}> = undefined;
 let currentGoal = 2;
 let currentTally = 0;
 
