@@ -22,7 +22,9 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
     for (const channel of channels) {
         if (channel.is_member) {
             if (!channel.is_general) {
-                rtm.sendMessage("me🚀irl", channel.id);
+                setTimeout(() => {
+                    rtm.sendMessage("me🚀irl", channel.id);
+                });
             }
             if (channel.name == "2random4random") {
                 random = channel;
