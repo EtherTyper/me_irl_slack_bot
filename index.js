@@ -42,14 +42,15 @@ rtm.on(RTM_EVENTS.MESSAGE, function (message) {
     let text = message.text;
     if (!text)
         return;
+    let me_irlRegex = /me(.|:.+:)irl/g;
     if (text.includes(username)) {
         rtm.sendMessage('/u/waterguy12 is gonna love this one!', message.channel);
     }
     else if (text.includes(';-;')) {
         rtm.sendMessage('Me too thanks.', message.channel);
     }
-    else if (/me.irl/g.test(text)) {
-        rtm.sendMessage(`${text.match(/me.irl/g)[0]} machine broke.`, message.channel);
+    else if (me_irlRegex.test(text)) {
+        rtm.sendMessage(`${text.match(me_irlRegex)[0]} machine broke.`, message.channel);
     }
     console.log(message);
 });
