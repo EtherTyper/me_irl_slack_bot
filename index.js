@@ -1,8 +1,7 @@
 // Trick Heroku into keeping the app running.
 const http = require('http');
-const https = require('https');
 require('http').createServer((req, res) => { res.end(); }).listen(process.env.PORT || 5000);
-setInterval(() => { https.request("https://meirl-bot.herokuapp.com", null); }, 5 * 60 * 1000);
+setInterval(() => { http.request("http://meirl-bot.herokuapp.com", () => { }); }, 5 * 60 * 1000);
 const RtmClient = require('@slack/client').RtmClient;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
